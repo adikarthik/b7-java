@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-java -jar target/my-app-2.0-SNAPSHOT.jar
+java -jar target/my-app-1.0-SNAPSHOT.jar
