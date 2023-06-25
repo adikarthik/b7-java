@@ -4,10 +4,15 @@ pipeline{
   maven 'm1'
 }
 stages {
- 
+  stage('clone') {
+    steps {
+      checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'ID_SSH_KEY', url: 'https://github.com/CPN-82/b6-java.git']])
+    }
+  }
+
   stage('build') {
     steps {
-      sh 'mvn clean install'
+     sh 'mvn clean install'
     }
   }
 
@@ -15,24 +20,16 @@ stages {
     steps {
       sh 'mvn test'
     }
-
-    post {
-      always {
-        archiveArtifacts artifacts: 'target/**.jar', followSymlinks: false
-      
-      }
-    }
   }
-
-  stage('run') {
+stage('run') {
     steps {
-        sh 'chmod 777 scripts/deliver.sh'
+      sh 'chmod 777 scripts/deliver.sh'
         sh './scripts/deliver.sh'
-      
     }
   }
+
+ 
 
 }
-
 
 }
