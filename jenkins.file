@@ -1,0 +1,42 @@
+pipeline{
+   
+    agent any
+    
+tools {
+  maven 'm1'
+}
+stages {
+  stage('install') {
+    steps { git branch: 'main', url: 'https://github.com/MedhaJoshi2019/b6-java.git'
+        
+      sh 'mvn install'
+    }
+
+    tools {
+      maven 'm1'
+    }
+  }
+
+  stage('test') {
+    steps {
+      sh 'mvn test'
+    }
+
+    tools {
+      maven 'm1'
+    }
+  }
+
+  stage('clean install') {
+    steps { git branch: 'main', url: 'https://github.com/MedhaJoshi2019/b6-java.git'
+     sh 'mvn clean install'
+    }
+
+    tools {
+      maven 'm1'
+    }
+  }
+
+}
+
+}
