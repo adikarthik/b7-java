@@ -1,0 +1,30 @@
+pipeline {
+
+	agent any
+        tools{
+          maven 'm395'
+        }
+        stages{   
+		stage(clean){
+			steps{
+				    sh 'mvn clean'
+			}
+			
+		}
+		
+		stage(install){
+			steps{
+				    sh 'mvn install'
+			     
+			}
+			post{
+			    always{
+			        archiveArtifacts artifacts: 'target/*.jar', followSymlinks: false
+                                junit 'target/surefire-reports/*.xml'
+			    }
+			}
+		}
+	    }
+	}
+
+
