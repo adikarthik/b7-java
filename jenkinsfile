@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Install') {
+            steps {
+                script {
+                    // Execute 'mvn install'
+                    def installResult = sh(script: 'mvn install', returnStatus: true)
+                    if (installResult == 0) {
+                        echo 'mvn install successful'
+                    } else {
+                        error 'mvn install failed'
+                    }
+                }
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                script {
+                    // Execute 'mvn test'
+                    def testResult = sh(script: 'mvn test', returnStatus: true)
+                    if (testResult == 0) {
+                        echo 'mvn test successful'
+                    } else {
+                        error 'mvn test failed'
+                    }
+                }
+            }
+        }
+
+        stage('Compile') {
+            steps {
+                script {
+                    // Execute 'mvn compile' only if the previous steps were successful
+                    echo 'Compilation stage will only run if previous steps were successful'
+                    sh 'mvn compile'
+                }
+            }
+        }
+    }
+}
