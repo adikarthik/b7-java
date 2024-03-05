@@ -1,0 +1,22 @@
+pipeline {
+
+        agent any
+
+        stages{
+
+                        stage(clean){
+                        steps{
+                            dir('Ajay-multipp'){
+                                    sh 'mvn clean'
+                            }
+                        }
+        }
+                stage(install){
+                        steps{
+                            dir('Ajay-multipp'){
+                                    sh 'mvn install'
+                        }
+                        }
+                     }
+                 }
+             } 
