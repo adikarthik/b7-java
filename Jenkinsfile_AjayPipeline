@@ -1,0 +1,25 @@
+pipeline {
+
+        agent any
+		tools{
+		maven 'm395'
+		}
+        stages{
+
+                        stage(clean){
+                        steps{
+                            dir('Ajay-MBPline'){
+                                    sh 'mvn clean'
+                            }
+                        }
+        }
+                stage(install){
+                        steps{
+                            dir('Ajay-MBPline'){
+                                    sh 'mvn install'
+                        }
+        }
+                         }  
+                 
+                 }
+             }
